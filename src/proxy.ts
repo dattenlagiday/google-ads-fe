@@ -21,7 +21,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboard/invite', request.nextUrl));
+    return NextResponse.redirect(new URL('/dashboard/account/token', request.nextUrl));
   }
 
   return NextResponse.next();

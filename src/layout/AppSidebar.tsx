@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useSidebar } from '../context/SidebarContext';
-import { BoxCubeIcon, ChevronDownIcon, HorizontaLDots, ListIcon, PieChartIcon, TableIcon } from '../icons/index';
+import { BoxCubeIcon, ChevronDownIcon, HorizontaLDots, PaperPlaneIcon, PieChartIcon, TableIcon } from '../icons/index';
 
 type NavItem = {
   name: string;
@@ -15,39 +15,24 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    name: 'Invitations',
-    icon: <ListIcon />,
-    subItems: [{ name: 'Send', path: '/dashboard/invite', pro: false }],
+    name: 'Tokens',
+    icon: <TableIcon />,
+    subItems: [
+      { name: 'Get Token', path: '/dashboard/account/token', pro: false },
+      { name: 'List MCC', path: '/dashboard/account/list', pro: false },
+    ],
   },
   {
-    name: 'Accounts',
-    icon: <TableIcon />,
-    subItems: [{ name: 'List', path: '/dashboard/accounts', pro: false }],
+    name: 'Invitations',
+    icon: <PaperPlaneIcon />,
+    subItems: [
+      { name: 'Send', path: '/dashboard/invitation/send', pro: false },
+      { name: 'History', path: '/dashboard/invitation/history', pro: false },
+    ],
   },
 ];
 
-const othersItems: NavItem[] = [
-  {
-    icon: <PieChartIcon />,
-    name: 'Charts',
-    subItems: [
-      { name: 'Line Chart', path: '/line-chart', pro: false },
-      { name: 'Bar Chart', path: '/bar-chart', pro: false },
-    ],
-  },
-  {
-    icon: <BoxCubeIcon />,
-    name: 'UI Elements',
-    subItems: [
-      { name: 'Alerts', path: '/alerts', pro: false },
-      { name: 'Avatar', path: '/avatars', pro: false },
-      { name: 'Badge', path: '/badge', pro: false },
-      { name: 'Buttons', path: '/buttons', pro: false },
-      { name: 'Images', path: '/images', pro: false },
-      { name: 'Videos', path: '/videos', pro: false },
-    ],
-  },
-];
+const othersItems: NavItem[] = [];
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
@@ -248,17 +233,6 @@ const AppSidebar: React.FC = () => {
                 {isExpanded || isHovered || isMobileOpen ? 'Menu' : <HorizontaLDots />}
               </h2>
               {renderMenuItems(navItems, 'main')}
-            </div>
-
-            <div className="">
-              <h2
-                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start'
-                }`}
-              >
-                {isExpanded || isHovered || isMobileOpen ? 'Others' : <HorizontaLDots />}
-              </h2>
-              {renderMenuItems(othersItems, 'others')}
             </div>
           </div>
         </nav>
