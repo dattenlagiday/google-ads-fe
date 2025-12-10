@@ -1,3 +1,4 @@
+import { isAllowed } from '@/lib/author';
 import { templateSendLinkMcc } from '@/lib/mail';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
@@ -19,6 +20,8 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(req: Request) {
     try {
+        await isAllowed()
+
         const { to, template, data } = await req.json();
 
         if (!to) {

@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
     icon: <TableIcon />,
     subItems: [
       { name: 'Get Token', path: '/dashboard/account/token', pro: false },
-      { name: 'List MCC', path: '/dashboard/account/list', pro: false },
+      { name: 'List Accounts', path: '/dashboard/account/list', pro: false },
     ],
   },
   {

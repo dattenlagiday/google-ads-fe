@@ -4,17 +4,10 @@ import React from 'react';
 import InviteInputs from '@/components/form/form-elements/InviteInputs';
 
 export const metadata: Metadata = {
-  title: 'Invite | Google Ads Admin',
+  title: 'Invite History | Google Ads Admin',
   description: '',
 };
 
-export default function FormElements() {
-  return (
-    <div>
-      <PageBreadcrumb pageTitle="Send invite" />
-      <div className="grid grid-cols-1 gap-6">
-        <InviteInputs />
-      </div>
-    </div>
-  );
+export default function InviteHistoryPage() {
+  return <div></div>;
 }

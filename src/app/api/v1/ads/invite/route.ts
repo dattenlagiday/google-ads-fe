@@ -2,9 +2,12 @@ import { NextResponse } from 'next/server';
 import { getGoogleAdsCustomer } from '@/lib/googleAdsHelper';
 import { enums } from 'google-ads-api';
 import { connectToDB } from '@/lib/mongodb';
+import { isAllowed } from '@/lib/author';
 
 export async function POST(req: Request) {
   try {
+    await isAllowed()
+
     await connectToDB();
 
     const { mccId, emails } = await req.json(); // emails: danh sách mail cần mời
@@ -62,12 +65,28 @@ export async function POST(req: Request) {
           const desc = first?.message;
           errorMsg = [desc, code].filter(Boolean).join(' | ');
         }
+        if (errorMsg.includes('developer token is only approved for use with test accounts')) {
+          errorMsg =
+            'Developer token hiện chỉ sử dụng được với test account. Hãy tạo test account hoặc nâng cấp token để mời tài khoản thật.';
+        }
 
         results.push({ email, status: 'Failed', error: errorMsg });
       }
     }
 
-    return NextResponse.json({ success: true, data: results });
+    const total = results.length;
+    const successCount = results.filter((item) => item.status === 'Success').length;
+    const failureCount = total - successCount;
+
+    return NextResponse.json({
+      success: successCount === total,
+      data: results,
+      summary: {
+        total,
+        successCount,
+        failureCount,
+      },
+    });
   } catch (error: any) {
     console.error('Invite API failed:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

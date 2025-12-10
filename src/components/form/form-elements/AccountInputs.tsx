@@ -56,7 +56,7 @@ export default function AccountInputs() {
           template: 1,
           data: {
             mccId: value.mccId,
-            link: link.data.url,
+            link: link.data.data.url,
           },
         });
         if (result.data.success) {
