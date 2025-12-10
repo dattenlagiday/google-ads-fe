@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function InviteSendPage() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Send invite" />
+      <PageBreadcrumb pageTitle="Send Invite" />
       <div className="grid grid-cols-1 gap-6">
         <InviteInputs />
       </div>

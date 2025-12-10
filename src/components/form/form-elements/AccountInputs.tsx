@@ -136,17 +136,24 @@ export default function AccountInputs() {
             </div>
           </div>
           <div className="flex items-center gap-3 px-2 mt-6 lg:justify-start">
-            <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
-              {([canSubmit, isSubmitting]) => (
-                <Button
-                  size="md"
-                  variant="primary"
-                  endIcon={<PaperPlaneIcon />}
-                  disabled={!canSubmit || isSubmitting} // chặn bấm khi đang submit
-                >
-                  {isSubmitting ? '...' : 'Send'}
-                </Button>
-              )}
+            <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting, state.values] as const}>
+              {([canSubmit, isSubmitting, values]) => {
+                const { mccId, managerMail } = values as {
+                  mccId?: string;
+                  managerMail?: string;
+                };
+                const readyToSubmit = !!mccId && !!managerMail;
+                return (
+                  <Button
+                    size="md"
+                    variant="primary"
+                    endIcon={<PaperPlaneIcon />}
+                    disabled={!readyToSubmit || isSubmitting}
+                  >
+                    {isSubmitting ? '...' : 'Send'}
+                  </Button>
+                );
+              }}
             </form.Subscribe>
           </div>
         </form>

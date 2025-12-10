@@ -132,7 +132,7 @@ export default function AccountInputs() {
           },
         });
         if (!active) return;
-        setMccOptions(res.data?.data || []);
+        setMccOptions(res.data?.data?.accounts || []);
       } catch (e) {
         console.error('Fetch MCC list error:', e);
       } finally {

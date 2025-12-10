@@ -88,7 +88,9 @@ export async function POST(req: Request) {
       },
     });
   } catch (error: any) {
-    console.error('Invite API failed:', error);
+    if (error instanceof Response) {
+      return error;
+    }
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

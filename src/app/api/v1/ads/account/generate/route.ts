@@ -35,8 +35,6 @@ export async function POST(req: Request) {
     if (error instanceof Response) {
       return error;
     }
-
-    console.error('Generate account auth URL error:', error);
     return NextResponse.json(
       {
         status: 'error',

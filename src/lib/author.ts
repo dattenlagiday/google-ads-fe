@@ -10,13 +10,13 @@ export const isAllowed = async () => {
     });
 
     if (!session) {
-        throw NextResponse.json({ error: 'Not Found' }, { status: 404 });
+        throw NextResponse.json({ status: 'failed', message: 'Không tìm thấy tài khoản' }, { status: 404 });
     }
 
     const email = session.user?.email;
 
     if (!email || !checkAllowedEmails(email)) {
-        throw NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+        throw NextResponse.json({ status: 'failed', message: 'Không có quyền truy cập' }, { status: 403 });
     }
 
     return session;

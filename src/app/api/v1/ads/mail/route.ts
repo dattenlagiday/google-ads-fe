@@ -61,7 +61,6 @@ export async function POST(req: Request) {
                 );
         }
 
-
         await transporter.sendMail({
             from: SENDER_EMAIL,
             to,
@@ -72,7 +71,9 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ success: true }, { status: 200 });
     } catch (error: any) {
-        console.error('Send mail error:', error);
+        if (error instanceof Response) {
+            return error;
+        }
         return NextResponse.json(
             { success: false, error: error?.message || 'Failed to send email' },
             { status: 500 },
